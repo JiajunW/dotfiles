@@ -1,0 +1,280 @@
+"{{{ Vundle
+set nocompatible " be iMproved, required
+filetype off " requied by vundle
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'gmarik/Vundle.vim'
+"}}}
+
+"{{{ Plugins
+Plugin 'bling/vim-airline'
+"Plugin 'undotree.vim'
+Plugin 'mbbill/undotree'
+Plugin 'ag.vim'
+"Plugin 'neocomplcache'
+Plugin 'xptemplate'
+"Plugin 'Valloric/YouCompleteMe'
+Plugin 'delimitMate.vim'
+Plugin 'surround.vim'
+Plugin 'repeat.vim'
+Plugin 'The-NERD-tree'
+Plugin 'The-NERD-Commenter'
+Plugin 'ctrlp.vim'
+Plugin 'Tagbar'
+Plugin 'fugitive.vim'
+Plugin 'Syntastic'
+"Plugin 'godlygeek/tabular'
+Plugin 'easymotion/vim-easymotion'
+Plugin 'a.vim'
+Plugin 'Emmet.vim'
+Plugin 'vimwiki'
+"Plugin 'groenewege/vim-less'
+Plugin 'colorizer'
+Plugin 'rizzatti/dash.vim'
+
+" colorscheme
+Plugin 'wombat256.vim'
+
+call vundle#end()
+"}}}
+
+"{{{ General
+filetype plugin indent on
+syntax on
+
+set nocompatible
+set lbr
+set number
+set numberwidth=4
+set relativenumber
+set foldlevel=3
+set hlsearch
+set incsearch
+set foldmethod=syntax
+set wildmenu
+set wildmode=longest:full,full
+set modeline
+set modelines=5
+set list
+set listchars=tab:\|-,trail:·,precedes:«,extends:»
+set pastetoggle=<F12>
+set display+=lastline
+set cul
+set viminfo+=n$HOME/.cache/vim/viminfo
+
+if has("persistent_undo")
+    set undofile
+    set undodir=$HOME/.cache/vim/undo
+endif
+
+if &term =~ '^screen'
+    " tmux knows the extended mouse mode
+    set ttymouse=xterm2
+endif
+
+let mapleader=';'
+nnoremap <leader>r :source $HOME/.vim/vimrc<cr>
+nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
+nnoremap <silent> <F10> :call ToggleWrap()<CR>
+nnoremap <F11> :set invnumber<CR>
+
+function ToggleWrap()
+    if &wrap
+        echo "Wrap OFF"
+        setlocal nowrap
+        set virtualedit=all
+        silent! nunmap <buffer> k
+        silent! nunmap <buffer> j
+        silent! nunmap <buffer> <Up>
+        silent! nunmap <buffer> <Down>
+        silent! nunmap <buffer> <Home>
+        silent! nunmap <buffer> <End>
+        silent! iunmap <buffer> <Up>
+        silent! iunmap <buffer> <Down>
+        silent! iunmap <buffer> <Home>
+        silent! iunmap <buffer> <End>
+    else
+        echo "Wrap ON"
+        setlocal wrap linebreak nolist
+        set virtualedit=
+        setlocal display+=lastline
+        noremap  <buffer> <silent> k      gk
+        noremap  <buffer> <silent> j      gj
+        noremap  <buffer> <silent> <Up>   gk
+        noremap  <buffer> <silent> <Down> gj
+        noremap  <buffer> <silent> <Home> g<Home>
+        noremap  <buffer> <silent> <End>  g<End>
+        inoremap <buffer> <silent> <Up>   <C-o>gk
+        inoremap <buffer> <silent> <Down> <C-o>gj
+        inoremap <buffer> <silent> <Home> <C-o>g<Home>
+        inoremap <buffer> <silent> <End>  <C-o>g<End>
+    endif
+endfunction
+
+" jump to the last cursor position when editing a file
+autocmd BufReadPost *
+    \ if ! exists("g:leave_my_cursor_position_alone") |
+    \     if line("'\"") > 0 && line ("'\"") <= line("$") |
+    \         exe "normal g'\"" |
+    \     endif |
+    \ endif
+
+"}}}
+
+"{{{ UI
+if &t_Co == 256
+    colorscheme wombat256mod
+else
+    colorscheme desert
+endif
+
+" set the cursor
+if &term =~ '^xterm'
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+elseif &term =~ '^screen'
+    " making tmux work
+    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+endif
+"}}}
+
+"{{{ airline
+set laststatus=2
+set noshowmode
+let g:airline_powerline_fonts = 1
+let g:airline_theme='powerlineish'
+let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#left_sep = ' '
+"let g:airline#extensions#tabline#left_alt_sep = '|'
+"}}}
+
+"{{{ undo
+map <F2> :UndotreeToggle<CR>
+let g:undotree_SetFocusWhenToggle = 1
+function! g:Undotree_CustomMap()
+    nmap <buffer> k <plug>UndotreeGoNextState
+    nmap <buffer> j <plug>UndotreeGoPreviousState
+    nmap <buffer> < <plug>UndotreeGoNextSaved
+    nmap <buffer> > <plug>UndotreeGoPreviousSaved
+endfunction
+"}}}
+
+"{{{ NeoComplCache
+"let g:neocomplcache_enable_at_startup = 1
+"let g:neocomplcache_temporary_dir = '$HOME/.cache/vim/neocomplcache'
+"let g:neocomplcache_enable_camel_case_completion=1
+"let g:neocomplcache_enable_underbar_completion=1
+"let g:neocomplcache_enable_cursor_hold_i=1
+"let g:neocomplcache_min_syntax_length=3
+
+" <CR>: close popup and save indent.
+"inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+"function! s:my_cr_function()
+"    "return neocomplcache#smart_close_popup() . "\<CR>"
+"    " For no inserting <CR> key.
+"    return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+"endfunction
+
+"inoremap <expr><Tab>  neocomplcache#start_manual_complete()
+
+" <TAB>: completion.
+"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+"inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
+"}}}
+
+"{{{ Snip
+"let g:xptemplate_key = '<Tab>'
+"let g:xptemplate_pum_tab_nav = 1
+"let g:xptemplate_fallback = '<Plug>Dummy'
+"}}}
+
+"{{{ delimitMate
+let delimitMate_expand_cr = 1
+"}}}
+
+"{{{ NERDTree
+map <F4> :NERDTreeToggle<CR>
+let NERDTreeWinPos='left'
+let NERDTreeIgnore=['\.o$', '\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
+"}}}
+
+"{{{ Emmet.vim
+let g:user_emmet_install_global = 0
+autocmd FileType html,htmldjango,css,less EmmetInstall
+let g:user_emmet_leader_key = ','
+"}}}
+
+"{{{ syntastic
+let g:syntastic_javascript_jslint_conf=""
+let g:syntastic_python_flake8_args='--ignore=E501'
+"}}}
+
+"{{{ Tagbar
+nnoremap <silent> <F3> :TagbarToggle<CR>
+"}}}
+
+"{{{ ctags
+if filereadable('./tags')
+    execute 'set tags=tags'
+endif
+map <C-]> :tselet <C-R>=expand("<cword>")<CR><CR>
+map <C-]> g<C-]>
+"}}}
+
+"{{{ cscope
+if has('cscope')
+    "set cscopetagcscopeverbose
+    if filereadable('cscope.out')
+        execute 'cs add cscope.out'
+    endif
+    if has('quickfx')
+        set cscopequckfix=s-,c-,d-,i-,t-,e-
+    endif
+
+    nmap <C-e>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-e>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-e>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-e>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-e>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-e>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+    nmap <C-e>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+    nmap <C-e>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+endif
+"}}}
+
+"{{{ Dash
+nmap <silent> <leader>d <Plug>DashSearch
+"}}}
+
+"{{{ CPlusPlus
+autocmd FileType cpp setlocal ts=4 sw=4 et sts=4
+"}}}
+
+"{{{ Python
+autocmd FileType python setlocal ts=4 sw=4 et sts=4 foldmethod=indent
+"}}}
+
+"{{{ Java
+autocmd FileType java setlocal ts=4 sw=4 et sts=4
+"}}}
+
+"{{{ HTML
+autocmd FileType html,htmldjango setlocal ts=2 sw=2 et sts=2 foldmethod=indent
+autocmd FileType html let b:delimitMate_expand_space = 1
+"}}}
+
+"{{{ CSS & LESS
+autocmd FileType css,less setlocal ts=2 sw=2 et sts=2
+"}}}
+
+"{{{ JavaScript
+autocmd FileType javascript setlocal ts=4 sw=4 et sts=4 foldmethod=marker foldmarker={,}
+"}}}
+
+"{{{ LaTeX
+autocmd FileType tex setlocal ts=2 sw=2 et sts=2
+"}}}
+
+" vim: set tw=80 sw=4 sts=4 et foldmethod=marker :
