@@ -1,0 +1,108 @@
+# {{{ homeshick
+# Must set fpath before compinit
+source "$HOME/.homesick/repos/homeshick/homeshick.sh"
+fpath=($HOME/.homesick/repos/homeshick/completions $fpath)
+# }}}
+
+# {{{ zsh config
+HISTFILE=~/.zshhistory
+HISTSIZE=1000
+SAVEHIST=1000
+
+setopt appendhistory beep extendedglob nomatch notify
+setopt HIST_IGNORE_DUPS
+setopt completealiases
+setopt nohashdirs
+unsetopt autocd
+bindkey -e
+
+autoload -U compinit promptinit select-word-style
+compinit
+promptinit
+prompt suse
+
+select-word-style bash
+
+zstyle ':completion:*' menu select
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' rehash true
+# }}}
+
+# {{{ Functions
+include () {
+    [[ -f "$1" ]] && source "$1"
+}
+
+append_path () {
+    [[ -d "$1" ]] && export PATH=$PATH:"$1"
+}
+
+prepend_path () {
+    [[ -d "$1" ]] && export PATH="$1":$PATH
+}
+# }}}
+
+# {{{ Environment variables
+[ -z $EDITOR ] && export EDITOR=vim
+
+export PATH=$PATH:/sbin:/usr/sbin:/usr/local/bin
+prepend_path $HOME/prefix/bin
+prepend_path $HOME/homebrew/bin
+append_path  $HOME/.local/bin
+append_path  $HOME/Library/Python/2.7/bin
+append_path  $HOME/Library/Python/3.4/bin
+append_path  $HOME/.node/bin
+append_path  $HOME/.gem/ruby/2.2.0/bin
+
+if [ $TERM = "xterm" ]; then
+    export TERM=xterm-256color
+fi
+# }}}
+
+# {{{ OS specific
+case "$(uname -s)" in
+
+   Darwin)
+     # Mac OS X
+     include $HOME/.zshrc.mac
+     ;;
+
+   Linux)
+     # Linux
+     include $HOME/.zshrc.linux
+     ;;
+
+   CYGWIN*|MINGW32*|MSYS*)
+     include $HOME/.zshrc.windows
+     ;;
+
+   *)
+     echo 'other OS (or missing cases for above OSs)'
+     ;;
+esac
+# }}}
+
+# {{{ Powerline prompt
+if [ -e $HOME/Library/Python/2.7/bin/powerline ]; then
+	powerline-daemon -q
+	source $HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh
+fi
+# }}}
+
+# {{{ alias
+alias du='du -h'
+alias df='df -h'
+
+alias unzip-gbk='unzip -O CP936'
+alias wgsite='wget -r -p -np -k'
+# }}}
+
+# {{{ tmuxinator
+include $HOME/.gem/ruby/2.2.0/gems/tmuxinator-0.6.11/completion/tmuxinator.zsh
+# }}}
+
+# {{{ virtualenv
+include $HOME/Library/Python/2.7/bin/virtualenvwrapper.sh
+# }}}
+
+# vim: set foldmethod=marker :
