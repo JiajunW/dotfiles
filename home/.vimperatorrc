@@ -1,0 +1,8 @@
+set hintchars=asdfjkl;
+autocmd LocationChange .*                             js modes.passAllKeys = false
+autocmd LocationChange tweetdeck\\.twitter\\.com      js modes.passAllKeys = true
+autocmd LocationChange digg\\.com/reader              js modes.passAllKeys = true
+autocmd LocationChange wx\\.qq.\\.com                 js modes.passAllKeys = true
+source! $HOME/.vimperatorrc.local
+
+" vim: set ft=vimperator:
