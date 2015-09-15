@@ -1,0 +1,6 @@
+alias ls='ls --color=auto -h --group-directories-first'
+alias ll='ls -l'
+alias grep='grep --color=auto'
+alias grepc='grep --color=always'
+alias psa='ps -fN --ppid 2'
+alias free='free -h'
