@@ -30,7 +30,9 @@ zstyle ':completion:*' rehash true
 
 # {{{ Functions
 include () {
-    [[ -f "$1" ]] && source "$1"
+    # `true` to make $? to 0
+    # some prompt, such as powerline, may show an error if not suppress $?
+    [[ -f "$1" ]] && source "$1" || true
 }
 
 append_path () {
@@ -87,6 +89,11 @@ if [ -e $HOME/Library/Python/2.7/bin/powerline ]; then
 	powerline-daemon -q
 	source $HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh
 fi
+
+if [ -e $HOME/.local/bin/powerline ]; then
+	powerline-daemon -q
+	source $HOME/.local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
+fi
 # }}}
 
 # {{{ alias
@@ -102,7 +109,8 @@ include $HOME/.gem/ruby/2.2.0/gems/tmuxinator-0.6.11/completion/tmuxinator.zsh
 # }}}
 
 # {{{ virtualenv
-include $HOME/Library/Python/2.7/bin/virtualenvwrapper.sh
+include $HOME/Library/Python/2.7/bin/virtualenvwrapper.sh      # mac
+include /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh # ubuntu
 # }}}
 
 # vim: set foldmethod=marker :
