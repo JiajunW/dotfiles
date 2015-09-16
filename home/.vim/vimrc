@@ -12,7 +12,6 @@ Plugin 'bling/vim-airline'
 "Plugin 'undotree.vim'
 Plugin 'mbbill/undotree'
 Plugin 'ag.vim'
-"Plugin 'neocomplcache'
 Plugin 'xptemplate'
 "Plugin 'Valloric/YouCompleteMe'
 Plugin 'delimitMate.vim'
@@ -24,11 +23,10 @@ Plugin 'ctrlp.vim'
 Plugin 'Tagbar'
 Plugin 'fugitive.vim'
 Plugin 'Syntastic'
-"Plugin 'godlygeek/tabular'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'a.vim'
 Plugin 'Emmet.vim'
-Plugin 'vimwiki'
+"Plugin 'vimwiki'
 "Plugin 'groenewege/vim-less'
 Plugin 'colorizer'
 Plugin 'rizzatti/dash.vim'
@@ -72,7 +70,9 @@ if &term =~ '^screen'
     " tmux knows the extended mouse mode
     set ttymouse=xterm2
 endif
+"}}}
 
+"{{{ Handy
 let mapleader=';'
 nnoremap <leader>r :source $HOME/.vim/vimrc<cr>
 nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
@@ -120,6 +120,15 @@ autocmd BufReadPost *
     \     endif |
     \ endif
 
+" remove trailing spaces
+fun! <SID>StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    call cursor(l, c)
+endfun
+
+autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 "}}}
 
 "{{{ UI
@@ -161,27 +170,7 @@ function! g:Undotree_CustomMap()
 endfunction
 "}}}
 
-"{{{ NeoComplCache
-"let g:neocomplcache_enable_at_startup = 1
-"let g:neocomplcache_temporary_dir = '$HOME/.cache/vim/neocomplcache'
-"let g:neocomplcache_enable_camel_case_completion=1
-"let g:neocomplcache_enable_underbar_completion=1
-"let g:neocomplcache_enable_cursor_hold_i=1
-"let g:neocomplcache_min_syntax_length=3
-
-" <CR>: close popup and save indent.
-"inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-"function! s:my_cr_function()
-"    "return neocomplcache#smart_close_popup() . "\<CR>"
-"    " For no inserting <CR> key.
-"    return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
-"endfunction
-
-"inoremap <expr><Tab>  neocomplcache#start_manual_complete()
-
-" <TAB>: completion.
-"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-"inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
+"{{{ Completion
 "}}}
 
 "{{{ Snip
@@ -207,12 +196,23 @@ let g:user_emmet_leader_key = ','
 "}}}
 
 "{{{ syntastic
-let g:syntastic_javascript_jslint_conf=""
+let g:syntastic_javascript_jslint_conf=''
 let g:syntastic_python_flake8_args='--ignore=E501'
+let g:syntastic_cpp_compiler_options='-std=c++11'
+"}}}
+
+"{{{ EasyMotion
+map <leader> <Plug>(easymotion-prefix)
+"}}}
+
+"{{{ CtrlP
+let g:ctrlp_user_command =
+    \ ['.git', 'cd %s && git ls-files . -co --exclude-standard']
 "}}}
 
 "{{{ Tagbar
 nnoremap <silent> <F3> :TagbarToggle<CR>
+let g:tagbar_iconchars = ['▸', '▾']
 "}}}
 
 "{{{ ctags
@@ -248,8 +248,8 @@ endif
 nmap <silent> <leader>d <Plug>DashSearch
 "}}}
 
-"{{{ CPlusPlus
-autocmd FileType cpp setlocal ts=4 sw=4 et sts=4
+"{{{ C/CPlusPlus
+autocmd FileType c,cpp setlocal ts=4 sw=4 et sts=4
 "}}}
 
 "{{{ Python
@@ -266,7 +266,7 @@ autocmd FileType html let b:delimitMate_expand_space = 1
 "}}}
 
 "{{{ CSS & LESS
-autocmd FileType css,less setlocal ts=2 sw=2 et sts=2
+autocmd FileType css,less,scss setlocal ts=2 sw=2 et sts=2
 "}}}
 
 "{{{ JavaScript
