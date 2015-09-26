@@ -92,7 +92,8 @@ fi
 
 if [ -e $HOME/.local/bin/powerline ]; then
 	powerline-daemon -q
-	source $HOME/.local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
+	include $HOME/.local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
+	include $HOME/.local/lib64/python3.4/site-packages/powerline/bindings/zsh/powerline.zsh
 fi
 # }}}
 
