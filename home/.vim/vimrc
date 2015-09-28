@@ -12,8 +12,10 @@ Plugin 'bling/vim-airline'
 "Plugin 'undotree.vim'
 Plugin 'mbbill/undotree'
 Plugin 'ag.vim'
-Plugin 'xptemplate'
-"Plugin 'Valloric/YouCompleteMe'
+Bundle 'ervandew/supertab'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
 Plugin 'delimitMate.vim'
 Plugin 'surround.vim'
 Plugin 'repeat.vim'
@@ -22,7 +24,7 @@ Plugin 'The-NERD-Commenter'
 Plugin 'ctrlp.vim'
 Plugin 'Tagbar'
 Plugin 'fugitive.vim'
-Plugin 'Syntastic'
+"Plugin 'Syntastic'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'a.vim'
 Plugin 'Emmet.vim'
@@ -174,9 +176,16 @@ endfunction
 "}}}
 
 "{{{ Snip
-"let g:xptemplate_key = '<Tab>'
-"let g:xptemplate_pum_tab_nav = 1
-"let g:xptemplate_fallback = '<Plug>Dummy'
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_global_ycm_extra_conf = "$HOME/.vim/ycm.py"
+
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 "}}}
 
 "{{{ delimitMate
