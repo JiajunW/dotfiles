@@ -132,11 +132,11 @@ autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 "}}}
 
 "{{{ UI
-if &t_Co == 256
+try
     colorscheme wombat256mod
-else
+catch /^Vim\%((\a\+)\)\=:E185/
     colorscheme desert
-endif
+endtry
 
 " set the cursor
 if &term =~ '^xterm'
