@@ -35,6 +35,8 @@ case "$(uname -s)" in
      echo 'other OS (or missing cases for above OSs)'
      ;;
 esac
+
+include $HOME/.zshrc.local
 # }}}
 
 # {{{ homeshick
