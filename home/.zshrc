@@ -1,3 +1,42 @@
+# {{{ Functions
+include () {
+    # `true` to make $? to 0
+    # some prompt, such as powerline, may show an error if not suppress $?
+    [[ -f "$1" ]] && source "$1" || true
+}
+
+append_path () {
+    [[ -d "$1" ]] && export PATH=$PATH:"$1"
+}
+
+prepend_path () {
+    [[ -d "$1" ]] && export PATH="$1":$PATH
+}
+# }}}
+
+# {{{ OS specific
+case "$(uname -s)" in
+
+   Darwin)
+     # Mac OS X
+     include $HOME/.zshrc.mac
+     ;;
+
+   Linux)
+     # Linux
+     include $HOME/.zshrc.linux
+     ;;
+
+   CYGWIN*|MINGW32*|MSYS*)
+     include $HOME/.zshrc.windows
+     ;;
+
+   *)
+     echo 'other OS (or missing cases for above OSs)'
+     ;;
+esac
+# }}}
+
 # {{{ homeshick
 # Must set fpath before compinit
 source "$HOME/.homesick/repos/homeshick/homeshick.sh"
@@ -28,22 +67,6 @@ zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' rehash true
 # }}}
 
-# {{{ Functions
-include () {
-    # `true` to make $? to 0
-    # some prompt, such as powerline, may show an error if not suppress $?
-    [[ -f "$1" ]] && source "$1" || true
-}
-
-append_path () {
-    [[ -d "$1" ]] && export PATH=$PATH:"$1"
-}
-
-prepend_path () {
-    [[ -d "$1" ]] && export PATH="$1":$PATH
-}
-# }}}
-
 # {{{ Environment variables
 [ -z $EDITOR ] && export EDITOR=vim
 
@@ -59,29 +82,6 @@ append_path  $HOME/.gem/ruby/2.2.0/bin
 if [ $TERM = "xterm" ]; then
     export TERM=xterm-256color
 fi
-# }}}
-
-# {{{ OS specific
-case "$(uname -s)" in
-
-   Darwin)
-     # Mac OS X
-     include $HOME/.zshrc.mac
-     ;;
-
-   Linux)
-     # Linux
-     include $HOME/.zshrc.linux
-     ;;
-
-   CYGWIN*|MINGW32*|MSYS*)
-     include $HOME/.zshrc.windows
-     ;;
-
-   *)
-     echo 'other OS (or missing cases for above OSs)'
-     ;;
-esac
 # }}}
 
 # {{{ Powerline prompt
