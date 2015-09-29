@@ -226,9 +226,10 @@ let g:tagbar_iconchars = ['▸', '▾']
 "{{{ ctags
 if filereadable('./tags')
     execute 'set tags=tags'
+
+    map <C-]> :tselet <C-R>=expand("<cword>")<CR><CR>
+    map <C-]> g<C-]>
 endif
-map <C-]> :tselet <C-R>=expand("<cword>")<CR><CR>
-map <C-]> g<C-]>
 "}}}
 
 "{{{ cscope
@@ -236,19 +237,20 @@ if has('cscope')
     "set cscopetagcscopeverbose
     if filereadable('cscope.out')
         execute 'cs add cscope.out'
-    endif
-    if has('quickfx')
-        set cscopequckfix=s-,c-,d-,i-,t-,e-
-    endif
 
-    nmap <C-e>s :cs find s <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-e>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-e>c :cs find c <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-e>t :cs find t <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-e>e :cs find e <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-e>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
-    nmap <C-e>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-    nmap <C-e>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+        nmap <C-e>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+        nmap <C-e>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+        nmap <C-e>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+        nmap <C-e>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+        nmap <C-e>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+        nmap <C-e>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+        nmap <C-e>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+        nmap <C-e>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+
+        if has('quickfx')
+            set cscopequckfix=s-,c-,d-,i-,t-,e-
+        endif
+    endif
 endif
 "}}}
 
