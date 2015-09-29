@@ -61,6 +61,7 @@ set listchars=tab:\|-,trail:·,precedes:«,extends:»
 set pastetoggle=<F12>
 set display+=lastline
 set cul
+set virtualedit=block
 set viminfo+=n$HOME/.cache/vim/viminfo
 
 if has("persistent_undo")
@@ -85,7 +86,6 @@ function ToggleWrap()
     if &wrap
         echo "Wrap OFF"
         setlocal nowrap
-        set virtualedit=all
         silent! nunmap <buffer> k
         silent! nunmap <buffer> j
         silent! nunmap <buffer> <Up>
@@ -99,7 +99,6 @@ function ToggleWrap()
     else
         echo "Wrap ON"
         setlocal wrap linebreak nolist
-        set virtualedit=
         setlocal display+=lastline
         noremap  <buffer> <silent> k      gk
         noremap  <buffer> <silent> j      gj
