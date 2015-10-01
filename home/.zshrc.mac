@@ -1,3 +1,5 @@
+fpath=(/Users/jiajunw/homebrew/share/zsh-completions $fpath)
+
 export LANG="en_US.UTF-8"
 
 export HOMEBREW_CASK_OPTS="--caskroom=~/caskroom --binarydir=~/prefix/bin"
@@ -5,7 +7,7 @@ export HOMEBREW_CASK_OPTS="--caskroom=~/caskroom --binarydir=~/prefix/bin"
 #export FIREFOX_BIN='/Users/jiajunw/Applications/Firefox.app/Contents/MacOS/firefox-bin'
 
 export PATH=$HOME/homebrew/opt/coreutils/libexec/gnubin:$PATH
-export MANPATH=$HOME/homebrew/opt/coreutils/libexec/gnuman:$MANPATH
+export MANPATH=$HOME/homebrew/share/man:$HOME/homebrew/opt/coreutils/libexec/gnuman:$MANPATH
 
 alias ls='ls --color=auto -h --group-directories-first'
 alias ll='ls -l'
