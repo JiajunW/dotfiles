@@ -77,7 +77,7 @@ prepend_path $HOME/prefix/bin
 prepend_path $HOME/homebrew/bin
 append_path  $HOME/.local/bin
 append_path  $HOME/Library/Python/2.7/bin
-append_path  $HOME/Library/Python/3.4/bin
+append_path  $HOME/Library/Python/3.5/bin
 append_path  $HOME/.node/bin
 append_path  $HOME/.gem/ruby/2.2.0/bin
 
