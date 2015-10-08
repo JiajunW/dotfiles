@@ -11,3 +11,6 @@ export MANPATH=$HOME/homebrew/share/man:$HOME/homebrew/opt/coreutils/libexec/gnu
 
 alias ls='ls --color=auto -h --group-directories-first'
 alias ll='ls -l'
+
+export ANDROID_ROOT=$HOME/prefix/opt/android-sdk
+export PATH=$PATH:$ANDROID_ROOT/platform-tools:$ANDROID_ROOT/tools
