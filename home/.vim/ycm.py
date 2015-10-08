@@ -4,16 +4,22 @@ def FlagsForFile(filename, **kwargs):
     '-Wall',
     '-Wextra',
     '-Werror',
+    '-isystem',
+    '/usr/include'
   ]
 
   data = kwargs['client_data']
   filetype = data['&filetype']
 
   if filetype == 'c':
-    flags += ['-x', 'c']
+    flags += ['-xc']
   elif filetype == 'cpp':
-    flags += ['-x', 'c++']
-    flags += ['-std=c++11']
+    flags += [
+      '-xc++',
+      '-std=c++11',
+      '-isystem',
+      '/usr/include/c++/v1'
+    ]
   elif filetype == 'objc':
     flags += ['-ObjC']
   else:
