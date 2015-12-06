@@ -98,7 +98,7 @@ nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
 nnoremap <silent> <F10> :call ToggleWrap()<CR>
 nnoremap <F11> :set invnumber<CR>
 
-function ToggleWrap()
+function! ToggleWrap()
     if &wrap
         echo "Wrap OFF"
         setlocal nowrap
