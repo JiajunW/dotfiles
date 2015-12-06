@@ -38,6 +38,19 @@ Plugin 'wombat256.vim'
 call vundle#end()
 "}}}
 
+"{{{ Config
+let mapleader=';'
+let s:dotvim = fnamemodify($MYVIMRC, ':h').'/'
+if has("unix")
+    let s:uname = system("echo -n \"$(uname)\"")
+    if s:uname == "Darwin"
+        let s:cachedir = "$HOME/Library/Caches/vim/"
+    else
+        let s:cachedir = "$HOME/.cache/vim/"
+    endif
+endif
+"}}}
+
 "{{{ General
 filetype plugin indent on
 syntax on
@@ -62,11 +75,11 @@ set pastetoggle=<F12>
 set display+=lastline
 set cul
 set virtualedit=block
-set viminfo+=n$HOME/.cache/vim/viminfo
+execute "set viminfo+=n".s:cachedir."viminfo"
 
 if has("persistent_undo")
     set undofile
-    set undodir=$HOME/.cache/vim/undo
+    execute "set undodir=".s:cachedir."undo"
 endif
 
 if &term =~ '^screen'
@@ -80,8 +93,6 @@ set encoding=utf-8
 "}}}
 
 "{{{ Handy
-let mapleader=';'
-let g:dotvim = fnamemodify($MYVIMRC, ':h')
 nnoremap <leader>r :source $HOME/.vim/vimrc<cr>
 nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
 nnoremap <silent> <F10> :call ToggleWrap()<CR>
@@ -183,7 +194,7 @@ endfunction
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:ycm_confirm_extra_conf = 0
-let g:ycm_global_ycm_extra_conf = g:dotvim.'/ycm.py'
+let g:ycm_global_ycm_extra_conf = s:dotvim.'ycm.py'
 let g:ycm_extra_conf_vim_data = ['&filetype']
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
@@ -224,6 +235,7 @@ map <leader> <Plug>(easymotion-prefix)
 "{{{ CtrlP
 let g:ctrlp_user_command =
     \ ['.git', 'cd %s && git ls-files . -co --exclude-standard']
+let g:ctrlp_cache_dir = s:cachedir.'ctrlp'
 "}}}
 
 "{{{ Tagbar
