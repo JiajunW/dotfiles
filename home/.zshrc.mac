@@ -8,11 +8,13 @@ export HOMEBREW_ROOT=/usr/local/homebrew
 export HOMEBREW_NO_GITHUB_API=1
 # }}}
 
-export PATH=$HOME/homebrew/opt/coreutils/libexec/gnubin:$PATH
-export MANPATH=$HOME/homebrew/share/man:$HOME/homebrew/opt/coreutils/libexec/gnuman:$MANPATH
+# {{{ gnu coreutils
+append_path $HOMEBREW_ROOT/opt/coreutils/libexec/gnubin
+export MANPATH=/usr/local/homebrew/share/man:$HOME/homebrew/opt/coreutils/libexec/gnuman:$MANPATH
+# }}}
 
-alias ls='ls --color=auto -h --group-directories-first'
-alias ll='ls -l'
+alias ls='gls --color=auto -h --group-directories-first'
+
 
 export ANDROID_ROOT=$HOME/prefix/opt/android-sdk
 export PATH=$PATH:$ANDROID_ROOT/platform-tools:$ANDROID_ROOT/tools
