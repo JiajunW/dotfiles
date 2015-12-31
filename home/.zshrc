@@ -72,9 +72,12 @@ zstyle ':completion:*' rehash true
 # {{{ Environment variables
 [ -z $EDITOR ] && export EDITOR=vim
 
-export PATH=$PATH:/sbin:/usr/sbin:/usr/local/bin
+append_path  /sbin
+append_path  /usr/sbin
+append_path  /usr/local/bin
+prepend_path $HOMEBREW_ROOT/bin
+prepend_path $HOMEBREW_ROOT/opt/coreutils/libexec/gnubin
 prepend_path $HOME/prefix/bin
-prepend_path $HOME/homebrew/bin
 append_path  $HOME/.local/bin
 append_path  $HOME/Library/Python/2.7/bin
 append_path  $HOME/Library/Python/3.5/bin
