@@ -1,10 +1,12 @@
 fpath=(/Users/jiajunw/homebrew/share/zsh-completions $fpath)
 
 export LANG="en_US.UTF-8"
+export LC_CTYPE="en_US.UTF-8"
 
-export HOMEBREW_CASK_OPTS="--caskroom=~/caskroom --binarydir=~/prefix/bin"
-#export CHROME_BIN='/Users/jiajunw/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
-#export FIREFOX_BIN='/Users/jiajunw/Applications/Firefox.app/Contents/MacOS/firefox-bin'
+# {{{ homebrew
+export HOMEBREW_ROOT=/usr/local/homebrew
+export HOMEBREW_NO_GITHUB_API=1
+# }}}
 
 export PATH=$HOME/homebrew/opt/coreutils/libexec/gnubin:$PATH
 export MANPATH=$HOME/homebrew/share/man:$HOME/homebrew/opt/coreutils/libexec/gnuman:$MANPATH
@@ -14,3 +16,4 @@ alias ll='ls -l'
 
 export ANDROID_ROOT=$HOME/prefix/opt/android-sdk
 export PATH=$PATH:$ANDROID_ROOT/platform-tools:$ANDROID_ROOT/tools
+# vim: set foldmethod=marker :
