@@ -18,4 +18,4 @@ alias ls='gls --color=auto -h --group-directories-first'
 
 export ANDROID_ROOT=$HOME/prefix/opt/android-sdk
 export PATH=$PATH:$ANDROID_ROOT/platform-tools:$ANDROID_ROOT/tools
-# vim: set foldmethod=marker :
+# vim: set foldmethod=marker filetype=zsh :
