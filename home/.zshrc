@@ -89,17 +89,9 @@ if [ $TERM = "xterm" ]; then
 fi
 # }}}
 
-# {{{ Powerline prompt
-if [ -e $HOME/Library/Python/2.7/bin/powerline ]; then
-	powerline-daemon -q
-	source $HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh
-fi
-
-if [ -e $HOME/.local/bin/powerline ]; then
-	powerline-daemon -q
-	include $HOME/.local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
-	include $HOME/.local/lib64/python3.4/site-packages/powerline/bindings/zsh/powerline.zsh
-fi
+# {{{ Powerlevel10k
+source $HOME/.p10k/powerlevel10k.zsh-theme
+source $HOME/.p10k.zsh
 # }}}
 
 # {{{ alias
