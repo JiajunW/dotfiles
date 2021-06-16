@@ -13,6 +13,10 @@ append_path $HOMEBREW_ROOT/opt/coreutils/libexec/gnubin
 export MANPATH=/usr/local/homebrew/share/man:$HOME/homebrew/opt/coreutils/libexec/gnuman:$MANPATH
 # }}}
 
+# {{{ VSCode
+append_path "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+# }}}
+
 alias ls='gls --color=auto -h --group-directories-first'
 
 
