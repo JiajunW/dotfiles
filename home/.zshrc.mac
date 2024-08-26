@@ -6,20 +6,23 @@ export LC_CTYPE="en_US.UTF-8"
 # {{{ homebrew
 export HOMEBREW_ROOT=/usr/local/homebrew
 export HOMEBREW_NO_GITHUB_API=1
+
+prepend_path $HOMEBREW_ROOT/bin
 # }}}
 
 # {{{ gnu coreutils
-append_path $HOMEBREW_ROOT/opt/coreutils/libexec/gnubin
+prepend_path $HOMEBREW_ROOT/opt/coreutils/libexec/gnubin
 export MANPATH=/usr/local/homebrew/share/man:$HOME/homebrew/opt/coreutils/libexec/gnuman:$MANPATH
+alias ls='gls --color=auto -h --group-directories-first'
+# }}}
+
+# {{{ Android
+export ANDROID_ROOT=$HOME/prefix/opt/android-sdk
+append_path $ANDROID_ROOT/platform-tools:$ANDROID_ROOT/tools
 # }}}
 
 # {{{ VSCode
 append_path "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 # }}}
 
-alias ls='gls --color=auto -h --group-directories-first'
-
-
-export ANDROID_ROOT=$HOME/prefix/opt/android-sdk
-export PATH=$PATH:$ANDROID_ROOT/platform-tools:$ANDROID_ROOT/tools
 # vim: set foldmethod=marker filetype=zsh :

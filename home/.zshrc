@@ -52,7 +52,7 @@ include $HOME/.zshrc.local
 
 # {{{ homeshick
 # Must set fpath before compinit
-source "$HOME/.homesick/repos/homeshick/homeshick.sh"
+include "$HOME/.homesick/repos/homeshick/homeshick.sh"
 fpath=($HOME/.homesick/repos/homeshick/completions $fpath)
 # }}}
 
@@ -86,14 +86,10 @@ zstyle ':completion:*' rehash true
 append_path  /sbin
 append_path  /usr/sbin
 append_path  /usr/local/bin
-prepend_path $HOMEBREW_ROOT/bin
-prepend_path $HOMEBREW_ROOT/opt/coreutils/libexec/gnubin
 prepend_path $HOME/prefix/bin
 append_path  $HOME/.local/bin
-append_path  $HOME/Library/Python/2.7/bin
-append_path  $HOME/Library/Python/3.5/bin
 append_path  $HOME/.node/bin
-append_path  $HOME/.gem/ruby/2.2.0/bin
+append_path  $HOME/.cargo/bin
 
 if [ $TERM = "xterm" ]; then
     export TERM=xterm-256color
@@ -111,15 +107,6 @@ alias df='df -h'
 
 alias unzip-gbk='unzip -O CP936'
 alias wgsite='wget -r -p -np -k'
-# }}}
-
-# {{{ tmuxinator
-include $HOME/.gem/ruby/2.2.0/gems/tmuxinator-0.6.11/completion/tmuxinator.zsh
-# }}}
-
-# {{{ virtualenv
-include $HOME/Library/Python/2.7/bin/virtualenvwrapper.sh      # mac
-include /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh # ubuntu
 # }}}
 
 # vim: set foldmethod=marker :
