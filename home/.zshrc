@@ -1,3 +1,14 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# Fix extra space of right prompt.
+# See https://github.com/romkatv/powerlevel10k#extra-space-without-background-on-the-right-side-of-right-prompt
+ZLE_RPROMPT_INDENT=0
+
 # {{{ Functions
 include () {
     # `true` to make $? to 0
@@ -90,8 +101,8 @@ fi
 # }}}
 
 # {{{ Powerlevel10k
-source $HOME/.p10k/powerlevel10k.zsh-theme
-source $HOME/.p10k.zsh
+include $HOME/.p10k/powerlevel10k.zsh-theme
+include $HOME/.p10k.zsh
 # }}}
 
 # {{{ alias
